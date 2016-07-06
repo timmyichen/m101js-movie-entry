@@ -66,11 +66,7 @@ app.post('/add_movie', function(req, res, next) {
             db.collection('movies').insertOne({"title":title,"year":year,"imdb":imdb});
             db.close();
         });
-        res.send("Thank you for your entry: " + 
-        "<br>Title: " + title +
-        "<br>Year: " + year +
-        "<br>IMDB: " + imdb
-        );
+        res.render('success',{"title":title, "year":year, "imdb":imdb});
     }
 });
 
