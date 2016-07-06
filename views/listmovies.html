@@ -1,0 +1,18 @@
+<!doctype HTML>
+<html>
+  <head><title>List of Movies in Database</title></head>
+  <body>
+     <h1>List of movies in database</h1>
+     {% for movie in movies %}
+     <li>
+         Title: {{movie.title}}
+         <ul>
+             <li>Year: {{movie.year}}</li>
+             <li>IMDB: <a href="http://www.imdb.com/title/{{movie.imdb}}">{{movie.imdb}}</a></li>
+         </ul>
+     </li>
+     {% else %}
+     <p>Database is Empty</p>
+     {% endfor %}
+  </body>
+</html>
