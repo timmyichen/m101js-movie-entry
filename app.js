@@ -48,10 +48,6 @@ app.post('/add_movie', function(req, res, next) {
     var year = req.body.year;
     var imdb = req.body.imdb;
     
-    console.log(typeof title);
-    console.log(typeof year);
-    console.log(typeof imdb);
-    
     if ( title == ''
         ||  year == ''
         ||  imdb == '')
@@ -63,10 +59,14 @@ app.post('/add_movie', function(req, res, next) {
             assert.equal(null, err);
             console.log("Successfully connected to server for insert");
     
-            db.collection('movies').insertOne({"title":title,"year":year,"imdb":imdb});
-            db.close();
+            db.collection('movies').insertOne({"title":title,"year":year,"imdb":imdb}, function(err, r){
+                assert.equal(null,err);
+                console.log("Inserted entry with _id: " + r.insertedId);
+                
+                db.close();
+                res.render('success',{"title":title, "year":year, "imdb":imdb});
+            });
         });
-        res.render('success',{"title":title, "year":year, "imdb":imdb});
     }
 });
 
